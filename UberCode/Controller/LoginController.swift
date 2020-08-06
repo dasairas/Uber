@@ -1,5 +1,6 @@
 
 import UIKit
+import Firebase
 
 class LoginController: UIViewController {
     
@@ -40,6 +41,7 @@ class LoginController: UIViewController {
         let button = AuthButton(type: .system)
         button.setTitle("Log in", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
     
@@ -48,8 +50,7 @@ class LoginController: UIViewController {
         let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
          attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.mainBlueTint]))
    
-        button.addTarget(self, action: #selector(handlerShowSignUp), for: .touchUpInside)
-        
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
     }()
@@ -64,9 +65,28 @@ class LoginController: UIViewController {
     
 
     //MARK: Selectors - Segue from Donthaveaccount button
-    @objc func handlerShowSignUp() {
+    @objc func handleShowSignUp() {
         let controller = SignUpController()
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    //LOGIN with FIREBASE
+    @objc func handleLogin() {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Failed to log with user \(error.localizedDescription)")
+                return
+            }
+            //loggea el usuario y hace rootcontroller al proximo VC, lo mete en "controller" y hace func de MAPVIEW!
+            guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController
+                else { return }
+            controller.configureUI()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     
