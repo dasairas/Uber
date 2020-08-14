@@ -11,14 +11,14 @@ class HomeController : UIViewController {
     
     private let locationManager = CLLocationManager()
     
-    private let InputActivationView = LocationInputActivationView()
-    
-    
+    private let inputActivationView = LocationInputActivationView()
+    private let locationInputView = LocationInputView()
+    private let tableView = UITableView()
     
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       //signOut()
+        //signOut()
         checkIfUserIsLoggedIn()
         enableLocationServices()
         
@@ -31,9 +31,8 @@ class HomeController : UIViewController {
                 let nav = UINavigationController(rootViewController: LoginController())
                 self.present(nav, animated: true, completion: nil)
             }
-        } else { // o sea está logeado -->
+        } else {
             configureUI()
-            
         }
     }
     
@@ -46,27 +45,46 @@ class HomeController : UIViewController {
     }
     
     //MARK: Helper Functions
+    
     func configureUI() {
         configureMapView()
-        
-        view.addSubview(InputActivationView)
-        InputActivationView.centerX(inView: view)
-        InputActivationView.setDimensions(height: 50, width: view.frame.width - 64)
-        InputActivationView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
+        view.addSubview(inputActivationView)
+        inputActivationView.centerX(inView: view)
+        inputActivationView.setDimensions(height: 50, width: view.frame.width - 64)
+        inputActivationView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 20)
+        inputActivationView.alpha = 0 // elimina la View
+        inputActivationView.delegate = self //muestra el mensaje del VC LocationInputActivation
+        UIView.animate(withDuration: 2) {
+            self.inputActivationView.alpha = 1 //aparece la view con efecto
+        }
     }
     
     func configureMapView() {
-       view.addSubview(mapView)
+        view.addSubview(mapView)
         mapView.frame = view.frame
         mapView.showsUserLocation = true // poner en la View la ubicacion
         mapView.userTrackingMode = .follow //follow de la location - clave para uber
     }
+    
+    func configureLocationInputView() {
+        locationInputView.delegate = self
+        view.addSubview(locationInputView)
+        locationInputView.anchor(top: view.safeAreaLayoutGuide.topAnchor , left: view.leftAnchor, right: view.rightAnchor, height: 200)
+        locationInputView.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.locationInputView.alpha = 1
+        }) { _ in
+            print("DEBUG: Present TableView in ")
+        }
+    }
+    
+    
 }
 
 
 //MARK: Location Services
- extension HomeController: CLLocationManagerDelegate {
-
+extension HomeController: CLLocationManagerDelegate {
+    
     func enableLocationServices(){
         
         locationManager.delegate = self // es por el Delegate y la Func "didChangeAutorization"
@@ -74,7 +92,6 @@ class HomeController : UIViewController {
         
         //Switch para determinar permisos auth
         switch CLLocationManager.authorizationStatus() {
-            
         case .notDetermined:
             print("DEBUG: NOT DETERMINED")
             locationManager.requestWhenInUseAuthorization() //1 pide permiso de accso
@@ -98,6 +115,25 @@ class HomeController : UIViewController {
             locationManager.requestAlwaysAuthorization()
         }
     }
-    
-    
+}
+
+
+// traigo el Protocol a esta VC, con su func predeterminada. Arriba creo su delegate = self
+extension HomeController: LocationInputActivationViewDelegate {
+    func presentLocationInputView() {
+        inputActivationView.alpha = 0 //oculto la barra de "where to?"
+        configureLocationInputView() //al hacer click abre la Func y eso abre la tableview
+    }
+}
+
+extension HomeController: LocationInputViewDelegate {
+    func dismissLocationInputView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.locationInputView.alpha = 0
+        }) { _ in
+            UIView.animate(withDuration: 0.3) {
+                self.inputActivationView.alpha = 1
+            }
+        }
+    }
 }

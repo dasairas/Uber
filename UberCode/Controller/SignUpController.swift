@@ -84,7 +84,7 @@ class SignUpController: UIViewController {
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureUI()
     }
     
@@ -122,6 +122,7 @@ class SignUpController: UIViewController {
     @objc func handleShowLogin() {
         navigationController?.popViewController(animated: true)
     }
+    
     
     //MARK: Helper Functions (simple code)
     func configureUI() {
