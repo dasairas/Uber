@@ -10,6 +10,9 @@
 		172F9D732C90717C685B1B6F /* Pods_UberCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9C65FF25881DE928937A19 /* Pods_UberCode.framework */; };
 		791EAE3124DB91B9005D668A /* LocationInputActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791EAE3024DB91B9005D668A /* LocationInputActivationView.swift */; };
 		791EAE3324DDFBBD005D668A /* LocationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791EAE3224DDFBBD005D668A /* LocationInputView.swift */; };
+		7926A01C24ECB26B00D7A98E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926A01B24ECB26B00D7A98E /* User.swift */; };
+		79311BA524E742E70015BC49 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79311BA424E742E70015BC49 /* LocationCell.swift */; };
+		79311BA724E87B9D0015BC49 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79311BA624E87B9D0015BC49 /* Service.swift */; };
 		7968C67A24D75EA100BAECC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7968C67924D75EA100BAECC4 /* GoogleService-Info.plist */; };
 		79725DA424D232DC00388E14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79725DA324D232DC00388E14 /* AppDelegate.swift */; };
 		79725DA624D232DC00388E14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79725DA524D232DC00388E14 /* SceneDelegate.swift */; };
@@ -27,6 +30,9 @@
 		4F9C65FF25881DE928937A19 /* Pods_UberCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UberCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		791EAE3024DB91B9005D668A /* LocationInputActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivationView.swift; sourceTree = "<group>"; };
 		791EAE3224DDFBBD005D668A /* LocationInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputView.swift; sourceTree = "<group>"; };
+		7926A01B24ECB26B00D7A98E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		79311BA424E742E70015BC49 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		79311BA624E87B9D0015BC49 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		7968C67924D75EA100BAECC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		79725DA024D232DC00388E14 /* UberCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79725DA324D232DC00388E14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 		79725DB824D232EA00388E14 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				79311BA624E87B9D0015BC49 /* Service.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -132,6 +139,7 @@
 				79F7AAC124D4D5420024410A /* AuthButton.swift */,
 				791EAE3024DB91B9005D668A /* LocationInputActivationView.swift */,
 				791EAE3224DDFBBD005D668A /* LocationInputView.swift */,
+				79311BA424E742E70015BC49 /* LocationCell.swift */,
 			);
 			name = View;
 			path = "New Group2/View";
@@ -140,6 +148,7 @@
 		79725DBB24D232FB00388E14 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7926A01B24ECB26B00D7A98E /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,7 +284,10 @@
 				791EAE3324DDFBBD005D668A /* LocationInputView.swift in Sources */,
 				79725DA424D232DC00388E14 /* AppDelegate.swift in Sources */,
 				791EAE3124DB91B9005D668A /* LocationInputActivationView.swift in Sources */,
+				79311BA524E742E70015BC49 /* LocationCell.swift in Sources */,
 				79725DBD24D23D7800388E14 /* LoginController.swift in Sources */,
+				7926A01C24ECB26B00D7A98E /* User.swift in Sources */,
+				79311BA724E87B9D0015BC49 /* Service.swift in Sources */,
 				79725DA624D232DC00388E14 /* SceneDelegate.swift in Sources */,
 				79725DBF24D35F7300388E14 /* Extensions.swift in Sources */,
 			);

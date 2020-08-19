@@ -3,13 +3,19 @@
 import UIKit
 
 protocol LocationInputViewDelegate : class {
-    
     func dismissLocationInputView()
 }
+
+
 
 class LocationInputView: UIView {
 
   //MARK Propierties
+    
+    var user: User? {
+        didSet { titleLabel.text = user?.fullname} //transcribe al TitleLabel el dato
+    }
+    
     
     weak var delegate: LocationInputViewDelegate?
     
@@ -21,9 +27,8 @@ class LocationInputView: UIView {
         return button
     }()
     
-    private let titleLabel: UILabel =  {
+     private let titleLabel: UILabel =  {
         let label = UILabel()
-        label.text = "MARTIN DAS AIRAS"
         label.textColor = .darkGray
         label.font = UIFont.systemFont(ofSize: 16)
         return label
