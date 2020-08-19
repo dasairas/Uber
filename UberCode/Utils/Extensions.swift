@@ -20,14 +20,14 @@ extension UIView {
         imageView.image = image
         imageView.alpha = 0.86
         view.addSubview(imageView)
-       
+        
         
         if let textField = textField {
             imageView.centerY(inView: view)
             imageView.anchor(left: view.leftAnchor,paddingLeft: 8, width: 24, height: 24)
-        view.addSubview(textField)
-        textField.centerY(inView: view)
-        textField.anchor(left: imageView.rightAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 8, paddingBottom: 8)
+            view.addSubview(textField)
+            textField.centerY(inView: view)
+            textField.anchor(left: imageView.rightAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 8, paddingBottom: 8)
         }
         
         if let sc = segmentedControl {
@@ -118,12 +118,12 @@ extension UITextField {
     
     func textField(withPlaceholder placeholder: String, isSecureTextEntry: Bool) -> UITextField {
         let tf = UITextField()
-             tf.borderStyle = .none
-             tf.font = UIFont.systemFont(ofSize: 16)
-             tf.textColor = .white
-             tf.keyboardAppearance = .dark
-             tf.isSecureTextEntry = isSecureTextEntry
-             tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
-             return tf
+        tf.borderStyle = .none
+        tf.font = UIFont.systemFont(ofSize: 16)
+        tf.textColor = .white
+        tf.keyboardAppearance = .dark
+        tf.isSecureTextEntry = isSecureTextEntry
+        tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+        return tf
     }
 }

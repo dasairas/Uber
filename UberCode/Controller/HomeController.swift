@@ -13,7 +13,7 @@ class HomeController : UIViewController {
     // MARK: Properties
     private let mapView = MKMapView()
     
-    private let locationManager = CLLocationManager()
+    private let locationManager = LocationHandler.shared.locationManager
     
     private let inputActivationView = LocationInputActivationView()
     private let locationInputView = LocationInputView()
@@ -44,8 +44,6 @@ class HomeController : UIViewController {
         }
     }
     
-    
-    
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
             DispatchQueue.main.async {
@@ -60,6 +58,10 @@ class HomeController : UIViewController {
     func signOut() {
         do {
             try Auth.auth().signOut()
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                self.present(nav, animated: true, completion: nil)
+            }
         } catch {
             print("Error signing out")
         }
@@ -120,39 +122,29 @@ class HomeController : UIViewController {
 
 
 //MARK: Location Services
-extension HomeController: CLLocationManagerDelegate {
+extension HomeController{
     
     func enableLocationServices(){
-        
-        locationManager.delegate = self // es por el Delegate y la Func "didChangeAutorization"
-        
-        
         //Switch para determinar permisos auth
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("DEBUG: NOT DETERMINED")
-            locationManager.requestWhenInUseAuthorization() //1 pide permiso de accso
+            locationManager?.requestWhenInUseAuthorization() //1 pide permiso de accso
         case .restricted, .denied:
             break
         case .authorizedAlways:
             print("DEBUG: AUTH ALWAYS")
-            locationManager.startUpdatingLocation() //3 update location constantemente
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest //4 busca mejorar la accuracy
+            locationManager?.startUpdatingLocation() //3 update location constantemente
+            locationManager?.desiredAccuracy = kCLLocationAccuracyBest //4 busca mejorar la accuracy
         case .authorizedWhenInUse:
             print("DEBUG: AUTH WHEN IN USE")
-            locationManager.requestAlwaysAuthorization() //2 luego del primer permiso pide el "always"
+            locationManager?.requestAlwaysAuthorization() //2 luego del primer permiso pide el "always"
         @unknown default:
             break
         }
     }
-    
-    //Implementado por el "Delegate". Te pregunta si queres "always" luego de aceptar "when in use"
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestAlwaysAuthorization()
-        }
-    }
 }
+
 
 
 // traigo el Protocol a esta VC, con su func predeterminada. Arriba creo su delegate = self
