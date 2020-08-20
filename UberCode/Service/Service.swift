@@ -1,7 +1,8 @@
 
 
 import Firebase
-
+import CoreLocation
+import GeoFire
 
 let DB_REF = Database.database().reference()  //access Firebase data
 let REF_USERS = DB_REF.child("users") //carpeta "users"
@@ -19,5 +20,16 @@ struct Service {
             let user = User(dictionary: dictionary)
             completion(user) //busca en el Firebase, crea un dictionary y completa los "Value" del "Key" de "Users.swift"
         }
+    }
+    
+    func fetchDrivers(location: CLLocation) {
+        let geofire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
+        
+        REF_DRIVER_LOCATIONS.observe(.value) { (snapshot) in
+            geofire.query(at: location, withRadius: 50).observe(.keyEntered, with:  { (uid, location) in //busca en "LOCATIONS" el query "location" y devuelve uid y location con radius 50
+                
+            })
+        }
+        
     }
 }
